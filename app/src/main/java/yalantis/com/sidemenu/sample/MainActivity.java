@@ -1,4 +1,4 @@
-package yalantis.com.sidemenu;
+package yalantis.com.sidemenu.sample;
 
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -19,10 +19,10 @@ import java.util.List;
 
 import io.codetail.animation.SupportAnimator;
 import io.codetail.animation.ViewAnimationUtils;
-import yalantis.com.sidemenu.fragment.ContentFragment;
 import yalantis.com.sidemenu.interfaces.Resourceble;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 import yalantis.com.sidemenu.model.SlideMenuItem;
+import yalantis.com.sidemenu.sample.fragment.ContentFragment;
 import yalantis.com.sidemenu.util.ViewAnimator;
 
 
@@ -40,12 +40,10 @@ public class MainActivity extends ActionBarActivity implements ViewAnimator.View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (savedInstanceState == null) {
-            contentFragment = ContentFragment.newInstance(R.drawable.content_music);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.content_frame, contentFragment)
-                    .commit();
-        }
+        contentFragment = ContentFragment.newInstance(R.drawable.content_music);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, contentFragment)
+                .commit();
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.setScrimColor(Color.TRANSPARENT);
         linearLayout = (LinearLayout) findViewById(R.id.left_drawer);
