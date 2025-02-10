@@ -1,12 +1,13 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 21
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
     }
@@ -18,6 +19,27 @@ android {
     }
 }
 dependencies {
-    compile 'com.android.support:appcompat-v7:21.0.3'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
 }
-apply from: '../mavenpush.gradle'
+
+task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.sourceFiles
+}
+
+task androidJavadocsJar(type: Jar) {
+    classifier = 'javadoc'
+    //basename = artifact_id
+    from androidJavadocs.destinationDir
+}
+
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    //basename = artifact_id
+    from android.sourceSets.main.java.sourceFiles
+}
+
+artifacts {
+    //archives packageReleaseJar
+    archives androidSourcesJar
+    archives androidJavadocsJar
+}
